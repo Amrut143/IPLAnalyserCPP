@@ -103,6 +103,13 @@ list<IPLRecordDAO> IPLAnalyser::getFieldWiseSortedPlayersRecord(SortType sortTyp
             {return ((firstBowler.bowlingAverage != 0 && secondBowler.bowlingAverage != 0) ? firstBowler.bowlingAverage < secondBowler.bowlingAverage : bool()) &&
             ((firstBowler.strikeRate != 0 && secondBowler.strikeRate != 0) ? firstBowler.strikeRate < secondBowler.strikeRate : bool());});
             break;
+
+        case BOWL_WKTS_WITH_AVG:
+            playerList = bowlerList;
+            playerList.sort([](const IPLRecordDAO firstBowler, const IPLRecordDAO secondBowler)
+            {return ((firstBowler.bowlingAverage != 0 && secondBowler.bowlingAverage != 0) ? firstBowler.bowlingAverage < secondBowler.bowlingAverage : bool()) &&
+            firstBowler.wkts > secondBowler.wkts; });
+            break;
     }   
 
     return playerList;

@@ -104,7 +104,14 @@ class IPLController {
                     iplView.displayBowlerDetails(playerList);
                     break;
 
-                case 12:
+                case BOWL_WKTS_WITH_AVG:
+                    system("clear");
+                    playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(BOWL_WKTS_WITH_AVG);
+                    cout << "Bowler having most wickets with best average" << endl;
+                    iplView.displayBowlerDetails(playerList);
+                    break;
+
+                case 13:
                     flag = false;
                     break;
 

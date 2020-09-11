@@ -38,7 +38,8 @@ class IPLAnalyserView {
             << "\n6.Players having highest run with best average" 
             << "\n7.Players having top bowling average \n8.Players having top bowling strikerate"
             << "\n9.Players having best economy \n10.Players having best strikerate with 5'w and 4'w"
-            << "\n11.Player having best bowling average with best strikerate \n12.Exit" << endl;
+            << "\n11.Player having best bowling average with best strikerate"
+            << "\n12.Player having most wickets with best average \n13.Exit" << endl;
 
         cin >> option;
         return option;
