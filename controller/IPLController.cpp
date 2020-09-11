@@ -56,7 +56,14 @@ class IPLController {
                     iplView.displayPlayerDetails(batsmanList);
                     break;
 
-                case 5:
+                case BAT_AVG_WITH_STRIKERATE:
+                    system("clear");
+                    batsmanList =  iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, BAT_AVG_WITH_STRIKERATE);
+                    cout << "Batsman having best average with best strikerate" << endl;
+                    iplView.displayPlayerDetails(batsmanList);
+                    break;
+
+                case 6:
                     flag = false;
                     break;
 

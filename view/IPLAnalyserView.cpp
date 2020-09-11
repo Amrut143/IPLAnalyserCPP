@@ -22,7 +22,8 @@ class IPLAnalyserView {
         int option;
 
         cout << "\nSelect your choice accordingly to view batsman data. \n1.Players having top batting averages \n2.Players having top strikerate" 
-            <<"\n3.Players having max 6's and 4's \n4.Players having best strikerate with 6's and 4's \n5.Exit" << endl;
+            <<"\n3.Players having max 6's and 4's \n4.Players having best strikerate with 6's and 4's"
+            << "\n5.Players having best average with best strikerate \n6.Exit" << endl;
 
         cin >> option;
         return option;
