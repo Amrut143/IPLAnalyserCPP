@@ -52,6 +52,13 @@ list<IPLBatsmanDataCSV> IPLAnalyser::getFieldWiseSortedPlayersRecord(list<IPLBat
             playerList.sort([](const IPLBatsmanDataCSV firstBatsman, const IPLBatsmanDataCSV secondBatsman)
             {return ((firstBatsman.fours * 4) + (firstBatsman.six * 6)) > ((secondBatsman.fours * 4) + (secondBatsman.six * 6)); });
             break;
-    }        
+
+        case SIX_AND_FOURS_WITH_STRIKERATE:
+            playerList.sort([](const IPLBatsmanDataCSV firstBatsman, const IPLBatsmanDataCSV secondBatsman)
+            {return firstBatsman.strikeRate > secondBatsman.strikeRate && 
+            ((firstBatsman.fours * 4) + (firstBatsman.six * 6 )) > ((secondBatsman.fours * 4) + (secondBatsman.six * 6)); });
+            break;    
+    }   
+
     return playerList;
 }

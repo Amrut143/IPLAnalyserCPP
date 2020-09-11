@@ -31,22 +31,32 @@ class IPLController {
                 case BATTING_AVERAGE:
                     system("clear");
                     batsmanList = iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, BATTING_AVERAGE);
+                    cout << "Batsman having highest to lowest average" << endl;
                     iplView.displayPlayerDetails(batsmanList);
                     break;
 
                 case STRIKE_RATE:
                     system("clear");
                     batsmanList = iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, STRIKE_RATE);
+                    cout << "Batsman having highest to lowest strikerate" << endl;
                     iplView.displayPlayerDetails(batsmanList);
                     break;
 
-                 case SIX_AND_FOURS:
+                case SIX_AND_FOURS:
                     system("clear");
                     batsmanList =  iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, SIX_AND_FOURS);
+                    cout << "Batsman hits maximum 6's and 4's" << endl;
                     iplView.displayPlayerDetails(batsmanList);
                     break;
 
-                case 4:
+                case SIX_AND_FOURS_WITH_STRIKERATE:
+                    system("clear");
+                    batsmanList =  iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, SIX_AND_FOURS_WITH_STRIKERATE);
+                    cout << "Batsman having best strikerate with max 6's and 4's" << endl;
+                    iplView.displayPlayerDetails(batsmanList);
+                    break;
+
+                case 5:
                     flag = false;
                     break;
 
