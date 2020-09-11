@@ -3,25 +3,24 @@
 #include "../model/IPLAnalyser.cpp"
 using namespace std;
 
-const string MOST_RUNS_FILE_PATH = "../resources/IPL2019FactsheetMostRuns.csv";
+string MOST_RUNS_FILE_PATH = "../resources/IPL2019FactsheetMostRuns.csv";
+string MOST_WKTS_FILE_PATH = "../resources/IPL2019FactsheetMostWkts.csv";
+
 
 class IPLController {
     IPLAnalyserView iplView;
     IPLAnalyser iplAnalyser;
-    list<IPLBatsmanDataCSV> playerList;
 
     public:
-    IPLController() {
-        playerList = iplAnalyser.loadIPLData(MOST_RUNS_FILE_PATH);
-    }
-
     void displayWelcomeMessage() {
         cout << "WelCome To IPLAnalyser 2019" << endl;
     }
 
     void displayOptionToSortPlayer() {
         bool flag = true;
-        list<IPLBatsmanDataCSV> batsmanList;
+        list<IPLRecordDAO> playerList;
+        iplAnalyser.loadIPLData(MOST_RUNS_FILE_PATH, BATSMAN);
+        iplAnalyser.loadIPLData(MOST_WKTS_FILE_PATH, BOWLER);
 
         while(flag) {
             int option = iplView.getOptionToSortPlayers();
@@ -30,47 +29,52 @@ class IPLController {
 
                 case BATTING_AVERAGE:
                     system("clear");
-                    batsmanList = iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, BATTING_AVERAGE);
+                    playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(BATTING_AVERAGE);
                     cout << "Batsman having highest to lowest average" << endl;
-                    iplView.displayPlayerDetails(batsmanList);
+                    iplView.displayBatsmanDetails(playerList);
                     break;
 
                 case STRIKE_RATE:
                     system("clear");
-                    batsmanList = iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, STRIKE_RATE);
+                    playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(STRIKE_RATE);
                     cout << "Batsman having highest to lowest strikerate" << endl;
-                    iplView.displayPlayerDetails(batsmanList);
+                    iplView.displayBatsmanDetails(playerList);
                     break;
 
                 case SIX_AND_FOURS:
                     system("clear");
-                    batsmanList =  iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, SIX_AND_FOURS);
+                    playerList =  iplAnalyser.getFieldWiseSortedPlayersRecord(SIX_AND_FOURS);
                     cout << "Batsman hits maximum 6's and 4's" << endl;
-                    iplView.displayPlayerDetails(batsmanList);
+                    iplView.displayBatsmanDetails(playerList);
                     break;
 
                 case SIX_AND_FOURS_WITH_STRIKERATE:
                     system("clear");
-                    batsmanList =  iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, SIX_AND_FOURS_WITH_STRIKERATE);
+                    playerList =  iplAnalyser.getFieldWiseSortedPlayersRecord(SIX_AND_FOURS_WITH_STRIKERATE);
                     cout << "Batsman having best strikerate with max 6's and 4's" << endl;
-                    iplView.displayPlayerDetails(batsmanList);
+                    iplView.displayBatsmanDetails(playerList);
                     break;
 
                 case BAT_AVG_WITH_STRIKERATE:
                     system("clear");
-                    batsmanList =  iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, BAT_AVG_WITH_STRIKERATE);
+                    playerList =  iplAnalyser.getFieldWiseSortedPlayersRecord(BAT_AVG_WITH_STRIKERATE);
                     cout << "Batsman having best average with best strikerate" << endl;
-                    iplView.displayPlayerDetails(batsmanList);
+                    iplView.displayBatsmanDetails(playerList);
                     break;
 
                 case BAT_RUN_WITH_AVG:
                     system("clear");
-                    batsmanList =  iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, BAT_RUN_WITH_AVG);
+                    playerList =  iplAnalyser.getFieldWiseSortedPlayersRecord(BAT_RUN_WITH_AVG);
                     cout << "Batsman having highest run with best average" << endl;
-                    iplView.displayPlayerDetails(batsmanList);
+                    iplView.displayBatsmanDetails(playerList);
                     break;
 
-                case 7:
+                case BOWLING_AVG:
+                    playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(BOWLING_AVG);
+                    iplView.displayBowlerDetails(playerList);
+                    break;
+
+                case 8:
                     flag = false;
                     break;
 

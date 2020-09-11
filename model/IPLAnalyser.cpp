@@ -1,67 +1,81 @@
 #include <vector>
 #include <list>
-#include "MostRunsCSV.cpp"
-#include "SortByField.cpp"
+#include "../adapter/IPLAdapterFactory.cpp"
+#include "../utility/SortByField.cpp"
+#include "../utility/PlayerType.cpp"
 #include "../utility/CSVFileReader.cpp"
 using namespace std;
 
 class IPLAnalyser {
-    list<IPLBatsmanDataCSV> batsmanList;
+    list<IPLRecordDAO> batsmanList;
+    list<IPLRecordDAO> bowlerList;
 
     public:
-    list<IPLBatsmanDataCSV> loadIPLData(string filePath);
-    list<IPLBatsmanDataCSV> getFieldWiseSortedPlayersRecord(list<IPLBatsmanDataCSV> batsmanList, SortType sortType);
+    void loadIPLData(string filePath, PlayerType playerType);
+    list<IPLRecordDAO> getFieldWiseSortedPlayersRecord(SortType sortType);
 };
 
-list<IPLBatsmanDataCSV> IPLAnalyser::loadIPLData(string filePath) {
-    CSVReader reader;
-    list<vector<string>> mostRunCSVList = reader.readCSVFile(filePath);
+void IPLAnalyser::loadIPLData(string filePath, PlayerType playerType) {
+    IPLAdapterFactory factory;
 
-    for(auto playerRecord = mostRunCSVList.begin(); playerRecord != mostRunCSVList.end(); playerRecord++){
+    switch(playerType) {
 
-        IPLBatsmanDataCSV batsman;
-        batsman.player = playerRecord -> at(1);
-        batsman.match = stoi(playerRecord -> at(2));
-        batsman.run = stoi(playerRecord -> at(5));
-        batsman.avg = stod(playerRecord -> at(7));
-        batsman.strikeRate = stod(playerRecord -> at(9));
-        batsman.fours = stoi(playerRecord -> at(12));
-        batsman.six = stoi(playerRecord -> at(13));
+        case BATSMAN:
+            batsmanList = factory.getIPLData(filePath, playerType);
+            break;
 
-        batsmanList.push_back(batsman);
+        case BOWLER:
+            bowlerList = factory.getIPLData(filePath, playerType);
+            break;
     }
-    return batsmanList;
 }
 
-list<IPLBatsmanDataCSV> IPLAnalyser::getFieldWiseSortedPlayersRecord(list<IPLBatsmanDataCSV> batsmanList, SortType sortType) {
-    list<IPLBatsmanDataCSV> playerList/*(batsmanList.begin(), batsmanList.end())*/ = batsmanList;
+list<IPLRecordDAO> IPLAnalyser::getFieldWiseSortedPlayersRecord(SortType sortType) {
+    list<IPLRecordDAO> playerList;
 
     switch(sortType) {
 
         case BATTING_AVERAGE:
-            playerList.sort([](const IPLBatsmanDataCSV firstBatsman, const IPLBatsmanDataCSV secondBatsman)
-            {return firstBatsman.avg > secondBatsman.avg;});
+            playerList = batsmanList;
+            playerList.sort([](const IPLRecordDAO firstBatsman, const IPLRecordDAO secondBatsman)
+            {return firstBatsman.battingAverage > secondBatsman.battingAverage;});
             break;
 
         case STRIKE_RATE:
-            playerList.sort([](const IPLBatsmanDataCSV firstBatsman, const IPLBatsmanDataCSV secondBatsman)
+            playerList = batsmanList;
+            playerList.sort([](const IPLRecordDAO firstBatsman, const IPLRecordDAO secondBatsman)
             {return firstBatsman.strikeRate > secondBatsman.strikeRate;});
             break;
 
         case SIX_AND_FOURS:
-            playerList.sort([](const IPLBatsmanDataCSV firstBatsman, const IPLBatsmanDataCSV secondBatsman)
-            {return ((firstBatsman.fours * 4) + (firstBatsman.six * 6)) > ((secondBatsman.fours * 4) + (secondBatsman.six * 6)); });
+            playerList = batsmanList;
+            playerList.sort([](const IPLRecordDAO firstBatsman, const IPLRecordDAO secondBatsman)
+            {return ((firstBatsman.fours * 4) + (firstBatsman.sixes * 6)) > ((secondBatsman.fours * 4) + (secondBatsman.sixes * 6)); });
             break;
 
         case SIX_AND_FOURS_WITH_STRIKERATE:
-            playerList.sort([](const IPLBatsmanDataCSV firstBatsman, const IPLBatsmanDataCSV secondBatsman)
+            playerList = batsmanList;
+            playerList.sort([](const IPLRecordDAO firstBatsman, const IPLRecordDAO secondBatsman)
             {return firstBatsman.strikeRate > secondBatsman.strikeRate && 
-            ((firstBatsman.fours * 4) + (firstBatsman.six * 6 )) > ((secondBatsman.fours * 4) + (secondBatsman.six * 6)); });
+            ((firstBatsman.fours * 4) + (firstBatsman.sixes * 6 )) > ((secondBatsman.fours * 4) + (secondBatsman.sixes * 6)); });
             break;
 
         case BAT_AVG_WITH_STRIKERATE:
-            playerList.sort([](const IPLBatsmanDataCSV firstBatsman, const IPLBatsmanDataCSV secondBatsman)
-            {return firstBatsman.avg > secondBatsman.avg && firstBatsman.strikeRate > secondBatsman.strikeRate;});
+            playerList = batsmanList;
+            playerList.sort([](const IPLRecordDAO firstBatsman, const IPLRecordDAO secondBatsman)
+            {return firstBatsman.battingAverage > secondBatsman.battingAverage && firstBatsman.strikeRate > secondBatsman.strikeRate;});
+            break;
+
+        case BAT_RUN_WITH_AVG:
+            playerList = batsmanList;
+            playerList.sort([](const IPLRecordDAO firstBatsman, const IPLRecordDAO secondBatsman)
+            {return firstBatsman.batsmanRun > secondBatsman.batsmanRun && firstBatsman.battingAverage > secondBatsman.battingAverage;});
+            break;
+
+        case BOWLING_AVG:
+            playerList = bowlerList;
+            playerList.sort([](const IPLRecordDAO firstBowler, const IPLRecordDAO secondBowler)
+            {return (firstBowler.bowlingAverage != 0 && secondBowler.bowlingAverage != 0) ? firstBowler.bowlingAverage < secondBowler.bowlingAverage : bool(); });
             break;    
     }   
 
