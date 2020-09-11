@@ -40,7 +40,13 @@ class IPLController {
                     iplView.displayPlayerDetails(batsmanList);
                     break;
 
-                case 3:
+                 case SIX_AND_FOURS:
+                    system("clear");
+                    batsmanList =  iplAnalyser.getFieldWiseSortedPlayersRecord(playerList, SIX_AND_FOURS);
+                    iplView.displayPlayerDetails(batsmanList);
+                    break;
+
+                case 4:
                     flag = false;
                     break;
 
