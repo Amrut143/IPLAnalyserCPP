@@ -70,11 +70,20 @@ class IPLController {
                     break;
 
                 case BOWLING_AVG:
+                    system("clear");
                     playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(BOWLING_AVG);
+                    cout << "Bowler having top average" << endl;
                     iplView.displayBowlerDetails(playerList);
                     break;
 
-                case 8:
+                case BOWL_STRIKERATE:
+                    system("clear");
+                    playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(BOWL_STRIKERATE);
+                    cout << "Bowler having top strikerate" << endl;
+                    iplView.displayBowlerDetails(playerList);
+                    break;
+
+                case 9:
                     flag = false;
                     break;
 
