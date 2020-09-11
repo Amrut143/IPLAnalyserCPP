@@ -34,7 +34,7 @@ list<IPLBatsmanDataCSV> IPLAnalyser::loadIPLData(string filePath) {
 }
 
 list<IPLBatsmanDataCSV> IPLAnalyser::getFieldWiseSortedPlayersRecord(list<IPLBatsmanDataCSV> batsmanList, SortType sortType) {
-    list<IPLBatsmanDataCSV> playerList(batsmanList.begin(), batsmanList.end());
+    list<IPLBatsmanDataCSV> playerList/*(batsmanList.begin(), batsmanList.end())*/ = batsmanList;
 
     switch(sortType) {
 
