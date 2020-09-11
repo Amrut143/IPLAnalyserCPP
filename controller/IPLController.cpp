@@ -90,7 +90,14 @@ class IPLController {
                     iplView.displayBowlerDetails(playerList);
                     break;
 
-                case 10:
+                case FIVEWKT_FOURWKT_STRIKERATE:
+                    system("clear");
+                    playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(FIVEWKT_FOURWKT_STRIKERATE);
+                    cout << "Bowler having best strikerate with 5'w and 4'w" << endl;
+                    iplView.displayBowlerDetails(playerList);
+                    break;
+
+                case 11:
                     flag = false;
                     break;
 
