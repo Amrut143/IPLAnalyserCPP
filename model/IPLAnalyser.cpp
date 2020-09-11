@@ -1,6 +1,7 @@
 #include <vector>
 #include <list>
 #include "MostRunsCSV.cpp"
+#include "SortByField.cpp"
 #include "../utility/CSVFileReader.cpp"
 using namespace std;
 
@@ -8,11 +9,11 @@ class IPLAnalyser {
     list<IPLBatsmanDataCSV> batsmanList;
 
     public:
-    void loadIPLData(string filePath);
-    list<IPLBatsmanDataCSV> getSortedPlayerAsPerBattingAvg();
+    list<IPLBatsmanDataCSV> loadIPLData(string filePath);
+    list<IPLBatsmanDataCSV> getFieldWiseSortedPlayersRecord(list<IPLBatsmanDataCSV> batsmanList, SortType sortType);
 };
 
-void IPLAnalyser::loadIPLData(string filePath) {
+list<IPLBatsmanDataCSV> IPLAnalyser::loadIPLData(string filePath) {
     CSVReader reader;
     list<vector<string>> mostRunCSVList = reader.readCSVFile(filePath);
 
@@ -29,11 +30,23 @@ void IPLAnalyser::loadIPLData(string filePath) {
 
         batsmanList.push_back(batsman);
     }
+    return batsmanList;
 }
 
-list<IPLBatsmanDataCSV> IPLAnalyser::getSortedPlayerAsPerBattingAvg() {
-    batsmanList.sort([](const IPLBatsmanDataCSV firstBatsman, const IPLBatsmanDataCSV secondBatsman)
-    {return firstBatsman.avg > secondBatsman.avg;});
-    
-    return batsmanList;
+list<IPLBatsmanDataCSV> IPLAnalyser::getFieldWiseSortedPlayersRecord(list<IPLBatsmanDataCSV> batsmanList, SortType sortType) {
+    list<IPLBatsmanDataCSV> playerList(batsmanList.begin(), batsmanList.end());
+
+    switch(sortType) {
+
+        case BATTING_AVERAGE:
+            playerList.sort([](const IPLBatsmanDataCSV firstBatsman, const IPLBatsmanDataCSV secondBatsman)
+            {return firstBatsman.avg > secondBatsman.avg;});
+            break;
+
+        case STRIKE_RATE:
+            playerList.sort([](const IPLBatsmanDataCSV firstBatsman, const IPLBatsmanDataCSV secondBatsman)
+            {return firstBatsman.strikeRate > secondBatsman.strikeRate;});
+            break;
+    }        
+    return playerList;
 }
