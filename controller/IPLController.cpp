@@ -83,7 +83,14 @@ class IPLController {
                     iplView.displayBowlerDetails(playerList);
                     break;
 
-                case 9:
+                case ECONOMY:
+                    system("clear");
+                    playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(ECONOMY);
+                    cout << "Bowler having best economy rate" << endl;
+                    iplView.displayBowlerDetails(playerList);
+                    break;
+
+                case 10:
                     flag = false;
                     break;
 

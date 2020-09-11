@@ -83,6 +83,12 @@ list<IPLRecordDAO> IPLAnalyser::getFieldWiseSortedPlayersRecord(SortType sortTyp
             playerList.sort([](const IPLRecordDAO firstBowler, const IPLRecordDAO secondBowler)
             {return (firstBowler.strikeRate != 0 && secondBowler.strikeRate != 0) ? firstBowler.strikeRate < secondBowler.strikeRate : bool(); });
             break;    
+
+        case ECONOMY:
+            playerList = bowlerList;
+            playerList.sort([](const IPLRecordDAO firstBowler, const IPLRecordDAO secondBowler)
+            {return firstBowler.economy < secondBowler.economy;});
+            break;
     }   
 
     return playerList;
