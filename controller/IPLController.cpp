@@ -115,10 +115,17 @@ class IPLController {
                     system("clear");
                     playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(BATTING_BOWLING_AVERAGE);
                     cout << "Player having best batting and bowling average" << endl;
-                    iplView.displayBowlerDetails(playerList);
+                    iplView.displayAllRounderDetails(playerList);
                     break;
 
-                case 14:
+                case MOST_RUNS_AND_WKTS:
+                    system("clear");
+                    playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(MOST_RUNS_AND_WKTS);
+                    cout << "Player having most runs and wickets" << endl;
+                    iplView.displayAllRounderDetails(playerList);
+                    break;
+
+                case 15:
                     flag = false;
                     break;
 

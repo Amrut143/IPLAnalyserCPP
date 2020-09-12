@@ -29,6 +29,16 @@ class IPLAnalyserView {
         }   
     }
 
+    void displayAllRounderDetails(list<IPLRecordDAO> allrounder) {
+    int count = 0;
+    for (auto playerRecord = allrounder.begin(); count < 2 ; playerRecord++ , count++) {
+        cout << "\nPLAYERNAME: " << playerRecord -> player << "\nBATTING AVERAGE: " << playerRecord -> battingAverage 
+            << "\nBOWLING AVERAGE: " << playerRecord -> bowlingAverage << "\nWICKETS: " << playerRecord -> wkts 
+            << "\nRUNS: " << playerRecord -> batsmanRun << endl;
+    }   
+}
+
+
      int getOptionToSortPlayers() {
         int option;
 
@@ -40,7 +50,7 @@ class IPLAnalyserView {
             << "\n9.Players having best economy \n10.Players having best strikerate with 5'w and 4'w"
             << "\n11.Player having best bowling average with best strikerate"
             << "\n12.Player having most wickets with best average \n13.Player having best batting and bowling average"
-            << "\n14.Exit" << endl;
+            << "\n14.Player having most runs and wickets \n15.Exit" << endl;
 
         cin >> option;
         return option;

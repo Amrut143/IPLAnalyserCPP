@@ -139,6 +139,11 @@ list<IPLRecordDAO> IPLAnalyser::getFieldWiseSortedPlayersRecord(SortType sortTyp
             playerList.sort([](const IPLRecordDAO firstPlayer, const IPLRecordDAO secondPlayer)
             {return ((firstPlayer.bowlingAverage != 0 && secondPlayer.bowlingAverage != 0) ? firstPlayer.bowlingAverage < secondPlayer.bowlingAverage : bool()) &&
             firstPlayer.battingAverage > secondPlayer.battingAverage;});
+
+        case MOST_RUNS_AND_WKTS:
+            playerList = getAllRounderData(batsmanList, bowlerList);
+            playerList.sort([](const IPLRecordDAO firstPlayer, const IPLRecordDAO secondPlayer)
+            {return  firstPlayer.wkts > secondPlayer.wkts && firstPlayer.batsmanRun > secondPlayer.batsmanRun;});
     }   
 
     return playerList;
