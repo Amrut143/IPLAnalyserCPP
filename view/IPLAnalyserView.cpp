@@ -52,7 +52,7 @@ class IPLAnalyserView {
             << "\n11.Player having best bowling average with best strikerate"
             << "\n12.Player having most wickets with best average \n13.Player having best batting and bowling average"
             << "\n14.Player having most runs and wickets \n15.Player having most 100 with best batting average"
-            << "\n16.Exit" << endl;
+            << "\n16.Player having zero 100 and 50 with best average \n17.Exit" << endl;
 
         cin >> option;
         return option;

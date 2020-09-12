@@ -139,16 +139,29 @@ list<IPLRecordDAO> IPLAnalyser::getFieldWiseSortedPlayersRecord(SortType sortTyp
             playerList.sort([](const IPLRecordDAO firstPlayer, const IPLRecordDAO secondPlayer)
             {return ((firstPlayer.bowlingAverage != 0 && secondPlayer.bowlingAverage != 0) ? firstPlayer.bowlingAverage < secondPlayer.bowlingAverage : bool()) &&
             firstPlayer.battingAverage > secondPlayer.battingAverage;});
+            break;
 
         case MOST_RUNS_AND_WKTS:
             playerList = getAllRounderData(batsmanList, bowlerList);
             playerList.sort([](const IPLRecordDAO firstPlayer, const IPLRecordDAO secondPlayer)
             {return  firstPlayer.wkts > secondPlayer.wkts && firstPlayer.batsmanRun > secondPlayer.batsmanRun;});
+            break;
 
         case MAX_100_WITH_BAT_AVG:
             playerList = batsmanList;
             playerList.sort([](const IPLRecordDAO firstPlayer, const IPLRecordDAO secondPlayer)
-            {return firstPlayer.century > secondPlayer.century && firstPlayer.battingAverage > secondPlayer.battingAverage; });
+            {return firstPlayer.century > secondPlayer.century && firstPlayer.battingAverage > secondPlayer.battingAverage;});
+            break;
+
+        case ZERO_100_50_WITH_AVG:
+            for (auto batsmanRecord = batsmanList.begin(); batsmanRecord != batsmanList.end(); batsmanRecord++) {
+                if (batsmanRecord -> century == 0 && batsmanRecord -> fifties == 0) {
+                    playerList.push_back(*batsmanRecord);
+                }
+            }
+            playerList.sort([](const IPLRecordDAO firstPlayer, const IPLRecordDAO secondPlayer)
+            {return firstPlayer.battingAverage > secondPlayer.battingAverage; });
+            break;
     }   
 
     return playerList;

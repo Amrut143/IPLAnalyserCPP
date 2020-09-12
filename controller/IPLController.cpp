@@ -132,7 +132,14 @@ class IPLController {
                     iplView.displayBatsmanDetails(playerList);
                     break;
 
-                case 16:
+                case ZERO_100_50_WITH_AVG:
+                    system("clear");
+                    playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(ZERO_100_50_WITH_AVG);
+                    cout << "Player having zero 100 and 50 with best average" << endl;
+                    iplView.displayBatsmanDetails(playerList);
+                    break;
+
+                case 17:
                     flag = false;
                     break;
 
