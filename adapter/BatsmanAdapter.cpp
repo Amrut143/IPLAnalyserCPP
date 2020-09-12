@@ -6,8 +6,8 @@
 
 using namespace std;
 
-class BatsmanAdapter : public IPLAdapter
-{
+class BatsmanAdapter : public IPLAdapter {
+
     public:
     list<IPLRecordDAO> loadIPLData(string filePath) {
         CSVReader reader;
@@ -22,6 +22,8 @@ class BatsmanAdapter : public IPLAdapter
             batsman.strikeRate = stod(playersRecord -> at(9));
             batsman.fours = stoi(playersRecord -> at(12));
             batsman.sixes = stoi(playersRecord -> at(13));
+            batsman.century = stoi(playersRecord -> at(10));
+            batsman.fifties = stoi(playersRecord -> at(11));
 
             playersList.push_back(batsman);
         }

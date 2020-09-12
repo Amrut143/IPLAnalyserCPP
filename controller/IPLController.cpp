@@ -125,7 +125,14 @@ class IPLController {
                     iplView.displayAllRounderDetails(playerList);
                     break;
 
-                case 15:
+                case MAX_100_WITH_BAT_AVG:
+                    system("clear");
+                    playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(MAX_100_WITH_BAT_AVG);
+                    cout << "Player having most 100 with best batting average" << endl;
+                    iplView.displayBatsmanDetails(playerList);
+                    break;
+
+                case 16:
                     flag = false;
                     break;
 

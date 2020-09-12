@@ -15,7 +15,8 @@ class IPLAnalyserView {
              cout << "\nPLAYERNAME: " << playerRecord -> player << "\nMATCH: " << playerRecord -> match 
                 << "\nAVERAGE: " << playerRecord -> battingAverage << "\nSTRIKE RATE: " << playerRecord -> strikeRate 
                 << "\n4's: " << playerRecord -> fours << "\n6's: " << playerRecord -> sixes 
-                << "\nRUNS: " << playerRecord -> batsmanRun << endl;
+                << "\nRUNS: " << playerRecord -> batsmanRun << "\n100'S: " << playerRecord -> century 
+                << "\n50'S: " << playerRecord -> fifties << endl;
         }
     }
 
@@ -50,7 +51,8 @@ class IPLAnalyserView {
             << "\n9.Players having best economy \n10.Players having best strikerate with 5'w and 4'w"
             << "\n11.Player having best bowling average with best strikerate"
             << "\n12.Player having most wickets with best average \n13.Player having best batting and bowling average"
-            << "\n14.Player having most runs and wickets \n15.Exit" << endl;
+            << "\n14.Player having most runs and wickets \n15.Player having most 100 with best batting average"
+            << "\n16.Exit" << endl;
 
         cin >> option;
         return option;

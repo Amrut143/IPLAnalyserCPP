@@ -13,6 +13,8 @@ class IPLRecordDAO {
     double bowlingAverage;
     int fours;
     int sixes;
+    int century;
+    int fifties;
     int wkts;
     int fourWkts;
     int fiveWkts;
