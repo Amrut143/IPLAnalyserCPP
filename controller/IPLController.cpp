@@ -111,7 +111,14 @@ class IPLController {
                     iplView.displayBowlerDetails(playerList);
                     break;
 
-                case 13:
+                case BATTING_BOWLING_AVERAGE:
+                    system("clear");
+                    playerList = iplAnalyser.getFieldWiseSortedPlayersRecord(BATTING_BOWLING_AVERAGE);
+                    cout << "Player having best batting and bowling average" << endl;
+                    iplView.displayBowlerDetails(playerList);
+                    break;
+
+                case 14:
                     flag = false;
                     break;
 

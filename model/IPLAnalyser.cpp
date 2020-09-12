@@ -13,6 +13,7 @@ class IPLAnalyser {
     public:
     void loadIPLData(string filePath, PlayerType playerType);
     list<IPLRecordDAO> getFieldWiseSortedPlayersRecord(SortType sortType);
+    list<IPLRecordDAO> getAllRounderData(list<IPLRecordDAO> batsman, list<IPLRecordDAO> bowler);
 };
 
 void IPLAnalyser::loadIPLData(string filePath, PlayerType playerType) {
@@ -28,6 +29,28 @@ void IPLAnalyser::loadIPLData(string filePath, PlayerType playerType) {
             bowlerList = factory.getIPLData(filePath, playerType);
             break;
     }
+}
+
+list<IPLRecordDAO> IPLAnalyser::getAllRounderData(list<IPLRecordDAO> batsman, list<IPLRecordDAO> bowler) {
+    list<IPLRecordDAO> playersList;
+
+    for (auto batsmanRecord = batsman.begin(); batsmanRecord != batsman.end(); batsmanRecord++) {
+
+        for(auto bowlerRecord = bowler.begin(); bowlerRecord != bowler.end(); bowlerRecord++) {
+            if(batsmanRecord -> player == bowlerRecord -> player) {
+                IPLRecordDAO allRounder;
+                allRounder.player = bowlerRecord -> player;
+                allRounder.batsmanRun = batsmanRecord -> batsmanRun;
+                allRounder.battingAverage = batsmanRecord -> battingAverage;
+                allRounder.bowlingAverage = bowlerRecord -> bowlingAverage;
+                allRounder.bowlerRun = bowlerRecord -> bowlerRun;
+                allRounder.wkts = bowlerRecord -> wkts;
+
+                playersList.push_back(allRounder);
+            }
+        }
+    }
+    return playersList;
 }
 
 list<IPLRecordDAO> IPLAnalyser::getFieldWiseSortedPlayersRecord(SortType sortType) {
@@ -110,6 +133,12 @@ list<IPLRecordDAO> IPLAnalyser::getFieldWiseSortedPlayersRecord(SortType sortTyp
             {return ((firstBowler.bowlingAverage != 0 && secondBowler.bowlingAverage != 0) ? firstBowler.bowlingAverage < secondBowler.bowlingAverage : bool()) &&
             firstBowler.wkts > secondBowler.wkts; });
             break;
+
+        case BATTING_BOWLING_AVERAGE:
+            playerList = getAllRounderData(batsmanList, bowlerList);
+            playerList.sort([](const IPLRecordDAO firstPlayer, const IPLRecordDAO secondPlayer)
+            {return ((firstPlayer.bowlingAverage != 0 && secondPlayer.bowlingAverage != 0) ? firstPlayer.bowlingAverage < secondPlayer.bowlingAverage : bool()) &&
+            firstPlayer.battingAverage > secondPlayer.battingAverage;});
     }   
 
     return playerList;
